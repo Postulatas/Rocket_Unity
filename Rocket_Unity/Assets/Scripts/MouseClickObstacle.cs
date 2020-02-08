@@ -4,15 +4,21 @@ using UnityEngine;
 
 public class MouseClickObstacle : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public GameObject enemy;
 
-    // Update is called once per frame
-    void Update()
+    public void Update()
     {
-        
+        if (Input.GetButtonDown("Fire1"))
+        {
+            RaycastHit hit;
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            if (Physics.Raycast(ray, out hit, Mathf.Infinity))
+            {
+                if (hit.collider.name == "Background")
+                    Debug.Log(hit.point.z-5);
+                    Vector3 position = new Vector3(hit.point.x, hit.point.y, hit.point.z - 5);
+                    Instantiate(enemy, position, Quaternion.identity);
+            }
+        }
     }
 }
