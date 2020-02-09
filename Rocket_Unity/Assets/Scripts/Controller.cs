@@ -8,6 +8,9 @@ public class Controller : MonoBehaviour
 
     Rigidbody rBody;
 
+    [SerializeField] float Main_Thrust = 10.0f;
+    [SerializeField] float rcs_Thrust = 200f;
+
     void Start()
     {
         rBody = GetComponent<Rigidbody>();
@@ -19,7 +22,16 @@ public class Controller : MonoBehaviour
         Thrust();
     }
 
-    [SerializeField] float Main_Thrust = 10.0f;
+    void OnCollisionEnter(Collision collision)
+    {
+        switch (collision.gameObject.tag)
+        {
+            case "Obstacle":
+                print("dead");
+                break;
+
+        }
+    }
 
     private void Thrust()
     {
@@ -28,8 +40,6 @@ public class Controller : MonoBehaviour
             rBody.AddRelativeForce(Vector3.up * Main_Thrust);
         }
     }
-
-    [SerializeField] float rcs_Thrust = 200f;
 
     private void Controll()
     {

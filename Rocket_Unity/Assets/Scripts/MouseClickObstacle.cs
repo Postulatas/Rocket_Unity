@@ -15,9 +15,10 @@ public class MouseClickObstacle : MonoBehaviour
             if (Physics.Raycast(ray, out hit, Mathf.Infinity))
             {
                 if (hit.collider.name == "Background")
-                    Debug.Log(hit.point.z-5);
-                    Vector3 position = new Vector3(hit.point.x, hit.point.y, hit.point.z - 5);
+                {
+                    Vector3 position = new Vector3(hit.point.x, hit.point.y, 0);
                     Instantiate(enemy, position, Quaternion.identity);
+                }
             }
         }
     }
