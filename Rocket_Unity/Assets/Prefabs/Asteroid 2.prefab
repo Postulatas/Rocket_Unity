@@ -89,6 +89,7 @@ GameObject:
   - component: {fileID: 5499024}
   - component: {fileID: 11421226}
   - component: {fileID: 2619277652769256325}
+  - component: {fileID: 4563904037310146887}
   m_Layer: 0
   m_Name: Asteroid 2
   m_TagString: Obstacle
@@ -119,7 +120,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 141316}
   serializedVersion: 2
-  m_Mass: 100
+  m_Mass: 2
   m_Drag: 1
   m_AngularDrag: 0
   m_UseGravity: 0
@@ -139,9 +140,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a718c138b20419b499c3d92b17e6ff7a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tumble: 0.25
-  speed: 10
-  earth: {fileID: 1659934759046340, guid: 1885272d02befb3429e46bfb5a828167, type: 3}
+  tumble: 2
 --- !u!136 &2619277652769256325
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -156,6 +155,19 @@ CapsuleCollider:
   m_Height: 3.7509742
   m_Direction: 1
   m_Center: {x: 0.037185907, y: 0.28951287, z: -0.053058386}
+--- !u!114 &4563904037310146887
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 141316}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0ee9e65586fb514a94214578b6cee3b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rb: {fileID: 5499024}
 --- !u!1 &146874
 GameObject:
   m_ObjectHideFlags: 0

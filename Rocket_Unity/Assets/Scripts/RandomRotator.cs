@@ -3,23 +3,25 @@ using System.Collections;
 
 public class RandomRotator : MonoBehaviour
 {
-    [SerializeField] private float tumble = 2;
-    [SerializeField] float speed = 10f;
+    [SerializeField] private float tumble = 2f;
 
-    public GameObject earth;
-
+    Rigidbody rb;
     void Start()
     {
-        GetComponent<Rigidbody>().angularVelocity = Random.insideUnitSphere * tumble;
+        rb = GetComponent<Rigidbody>();
+        rb.angularVelocity = Random.insideUnitSphere * tumble;
     }
 
-    void Update()
+    void OnCollisionEnter(Collision collision)
     {
-        OrbitAround();
-    }
-
-    private void OrbitAround()
-    {
-        transform.RotateAround(earth.transform.position, -Vector3.forward, speed * Time.deltaTime * UnityEngine.Random.Range(0.0f, 1.0f));
+        switch (collision.gameObject.tag)
+        {
+            case "Start":
+                Destroy(gameObject);
+                break;
+            case "Target":
+                Destroy(gameObject);
+                break;
+        }
     }
 }
