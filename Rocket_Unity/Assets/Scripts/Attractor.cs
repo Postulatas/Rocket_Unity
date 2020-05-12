@@ -13,7 +13,7 @@ public class Attractor : MonoBehaviour
     {
         foreach (Attractor attractor in Attractors)
         {
-            if(attractor != this)
+            if (attractor != this)
             {
                 Attract(attractor);
             }
@@ -43,6 +43,7 @@ public class Attractor : MonoBehaviour
         float forceMagnitude = G * (rb.mass * rbToAttract.mass) / Mathf.Pow(distance, 2);
         Vector3 force = direction.normalized * forceMagnitude;
 
-        rbToAttract.AddForce(force);
+        rbToAttract.AddForce(rbToAttract.transform.forward, ForceMode.Acceleration);
+        rbToAttract.AddForce(force, ForceMode.Acceleration);
     }
 }
