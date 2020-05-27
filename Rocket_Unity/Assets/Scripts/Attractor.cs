@@ -18,6 +18,7 @@ public class Attractor : MonoBehaviour
                 Attract(attractor);
             }
         }
+
     }
 
     private void OnEnable() // nesuprantu
@@ -44,6 +45,5 @@ public class Attractor : MonoBehaviour
         Vector3 force = direction.normalized * forceMagnitude;
 
         rbToAttract.AddForce(rbToAttract.transform.forward, ForceMode.Acceleration);
-        rbToAttract.AddForce(force, ForceMode.Acceleration);
     }
 }
