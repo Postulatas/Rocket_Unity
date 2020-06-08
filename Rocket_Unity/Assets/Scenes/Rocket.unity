@@ -647,5 +647,15 @@ PrefabInstance:
       propertyPath: GameSpeed
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 7237035978826072535, guid: 654b20cb584401f4fb430d16e1f9245d,
+        type: 3}
+      propertyPath: pop
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 7237035978826072535, guid: 654b20cb584401f4fb430d16e1f9245d,
+        type: 3}
+      propertyPath: generation
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 654b20cb584401f4fb430d16e1f9245d, type: 3}

@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class NeuralNetwork
 {
-    System.Random rand = new System.Random();
     public List<Layer> layers;
 
     public NeuralNetwork()
@@ -76,11 +75,12 @@ public class NeuralNetwork
             {
                 for (int j = 0; j < cols; j++)
                 {
-
+                    int a = (int)System.DateTime.Now.Ticks;
+                    UnityEngine.Random.InitState(a);
                     double we = this.layers[k].Weights.data[i, j];
-                    if (rand.NextDouble() * 1000f <= 2f)
+                    if (UnityEngine.Random.value* 1000f <= 2f)
                     {
-                        we = rand.NextDouble();
+                        we = UnityEngine.Random.value;
                     }
                     this.layers[k].Weights.data[i, j]=we;
                 }
