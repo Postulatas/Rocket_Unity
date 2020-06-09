@@ -119,4 +119,9 @@ public class Matrix
     {
         return 1.0 / (1.0 + Math.Exp(-n));
     }
+
+    public static double mapping(double val, double from1, double to1, double from2, double to2)
+    {
+        return (val - from1) / (to1 - from1) * (to2 - from2) + from2;
+    }
 }

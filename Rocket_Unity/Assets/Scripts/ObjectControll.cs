@@ -8,6 +8,7 @@ public class MouseClickObstacle : MonoBehaviour
     public GameObject ast_1;
     public GameObject ast_2;
     public GameObject ast_3;
+    public GameObject Forrest;
 
     public void Start()
     {
@@ -21,7 +22,23 @@ public class MouseClickObstacle : MonoBehaviour
 
     public void Update()
     {
-        if (Input.GetButtonDown("Fire1"))
+        AsteroidClick();
+        MoveForrest();
+    }
+
+    private void MoveForrest()
+    {
+        if (Input.GetMouseButton(0))
+        {
+            Vector3 temp = Input.mousePosition;
+            temp.z = -Camera.main.transform.position.z; // Set this to be the distance you want the object to be placed in front of the camera.
+            Forrest.transform.position = Camera.main.ScreenToWorldPoint(temp);
+        }
+    }
+
+    private void AsteroidClick()
+    {
+        if (Input.GetButtonDown("Fire2"))
         {
             RaycastHit hit;
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -30,9 +47,9 @@ public class MouseClickObstacle : MonoBehaviour
                 if (hit.collider.name == "Background")
                 {
                     Vector3 position = new Vector3(hit.point.x, hit.point.y, 0);
-                    int prefabIndex = UnityEngine.Random.Range(0,3);
+                    int prefabIndex = UnityEngine.Random.Range(0, 3);
                     Instantiate(prefabList[prefabIndex], position, Quaternion.identity);
-                    
+
                 }
             }
         }

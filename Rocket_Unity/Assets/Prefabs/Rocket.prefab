@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 7117845254920441798}
   - component: {fileID: 8545304279757862255}
   m_Layer: 11
-  m_Name: Rocket 1
+  m_Name: Rocket
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -94,7 +94,7 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 56
   m_CollisionDetection: 0
 --- !u!64 &7117845254920441798
 MeshCollider:
@@ -134,4 +134,3 @@ MonoBehaviour:
   dead: 0
   o1: 0
   o2: 0
-  io: 0

@@ -21,6 +21,7 @@ public class Rockets : MonoBehaviour
         InvokeRepeating("CreateRocket", 0.1f, timeframe);
     }
 
+    // Sukuria Neuroninių tinklų 2 masyvus (vienas kopijom)
     public void CreateNet()
     {    
         neural = new List<NeuralNetwork>();
@@ -32,7 +33,6 @@ public class Rockets : MonoBehaviour
             nn.AddLayer(new Layer(2));
             neural.Add(nn);
             cop.Add(nn);
-            //sukuria list neuroniniu tinklu ir taip pat kopija ju
         }
     }
 
@@ -44,16 +44,17 @@ public class Rockets : MonoBehaviour
         {
             EditFit();
             Crossover();
+            // Nukopijuojami raketų NN rezultatai
             for (int i = 0; i < pop; i++)
             {
                 cop[i]=neural[i].DeepCopy();
             }
+            // Raketos pašalinamos iš scenos
             for (int i = 0; i < rockets.Count; i++)
             {
                 if (rockets[i].dead==false)
                 {
                     GameObject.Destroy(rockets[i].gameObject);
-                    //sunaikina visus objektus po tam tikro laiko
                 }                
             }
             for (int i = 0; i < pop; i++)
@@ -64,19 +65,22 @@ public class Rockets : MonoBehaviour
             rockets.Clear();
             //temp.Clear();
         }
- 
+
+        // Sukuriami raketų masyvai ir priskiriami ankščiau sukurti NN raketom
         rockets = new List<Genetic>();
         temp = new List<Genetic>();
         for (int i = 0; i < pop; i++)
         {
+            // Raketų init pozicija
             Vector3 pos = new Vector3(0, 39, 0);
             Genetic rocket = (Instantiate(Prefab, pos, Quaternion.identity)).GetComponent<Genetic>();
             rocket.nn = neural[i];
             rockets.Add(rocket);
             temp.Add(rocket);
-            //sukuria list raketu ir kiekvienai priskiria tinkla, taip pat sukuriama kopija
         }    
     }
+
+    // Surusiojami raketų (fitness) rezultatai mažėjimo tvarka
     public void EditFit()
     {
         int check = 1;
@@ -93,17 +97,12 @@ public class Rockets : MonoBehaviour
                     rockets[i + p] = rockets[i];           
                     rockets[i] = temp[i];
                     check = 1;
-                    //surusiojami tinklai mazejimo tvarka pagal fitness
                 }
             }
-        }
-        for (int i = 0; i < pop; i++)
-        {
-            //print(rockets[i].fitness);
-        }
-            
+        }      
     }
 
+    // Čia reikia viską supaprastint
     public void Crossover()
     {
         List<double> NewGenes = new List<double>();
@@ -172,10 +171,10 @@ public class Rockets : MonoBehaviour
                 }
             }
         }
-        print("rocket1");
+        /*print("rocket1");
         rockets[0].nn.layers[1].Weights.MatrixDisplay();
         print("rocket2");
-        rockets[1].nn.layers[1].Weights.MatrixDisplay();
+        rockets[1].nn.layers[1].Weights.MatrixDisplay();*/
         NewGenes.Clear();
         ReverseGenes.Clear();
     }
