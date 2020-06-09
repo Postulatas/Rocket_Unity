@@ -13,12 +13,11 @@ public class Attractor : MonoBehaviour
     {
         foreach (Attractor attractor in Attractors)
         {
-            if (attractor != this)
+            if(attractor != this)
             {
                 Attract(attractor);
             }
         }
-
     }
 
     private void OnEnable() // nesuprantu
@@ -44,7 +43,6 @@ public class Attractor : MonoBehaviour
         float forceMagnitude = G * (rb.mass * rbToAttract.mass) / Mathf.Pow(distance, 2);
         Vector3 force = direction.normalized * forceMagnitude;
 
-        rbToAttract.AddForce(rbToAttract.transform.forward, ForceMode.Acceleration);
         rbToAttract.AddForce(force);
     }
 }

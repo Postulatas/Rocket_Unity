@@ -90,7 +90,7 @@ GameObject:
   - component: {fileID: 11421226}
   - component: {fileID: 2619277652769256325}
   - component: {fileID: 4563904037310146887}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: Asteroid 2
   m_TagString: Obstacle
   m_Icon: {fileID: 0}

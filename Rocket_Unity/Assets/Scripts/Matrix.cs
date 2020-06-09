@@ -6,7 +6,6 @@ using UnityEngine;
 public class Matrix
 {
     static System.Random rand = new System.Random();
-    static System.Random rn = new System.Random();
     public int rows, cols;
     public double[,] data;
 
@@ -72,16 +71,16 @@ public class Matrix
     }
 
     public Matrix Map(Func<double, double> func)
-    {
-        for (int row = 0; row < this.rows; row++)
         {
-            for (int col = 0; col < this.cols; col++)
+            for (int row = 0; row < this.rows; row++)
             {
-                this.data[row, col] = func(this.data[row, col]);
+                for (int col = 0; col < this.cols; col++)
+                {
+                    this.data[row, col] = func(this.data[row, col]);
+                }
             }
+            return this;
         }
-        return this;
-    }
 
     public static Matrix FromArray(double[] arr)
     {
@@ -111,7 +110,6 @@ public class Matrix
             for (int col = 0; col < this.cols; col++)
             {
                 this.data[row, col] = (rand.NextDouble() * (end - start)) + start; // NextDouble() by default returns between 0 and 1
-                this.data[row, col] = (rn.NextDouble() * (end - start)) + start; // NextDouble() by default returns between 0 and 1
             }
         }
     }
@@ -127,4 +125,3 @@ public class Matrix
         return n * rand.NextDouble() * 2 - 1;
     }
 }
-

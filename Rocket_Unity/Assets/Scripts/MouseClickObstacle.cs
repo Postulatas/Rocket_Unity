@@ -14,9 +14,6 @@ public class MouseClickObstacle : MonoBehaviour
         prefabList.Add(ast_1);
         prefabList.Add(ast_2);
         prefabList.Add(ast_3);
-        ast_1.layer = 9;
-        ast_2.layer = 9;
-        ast_3.layer = 9;
     }
 
     public void Update()
@@ -32,7 +29,6 @@ public class MouseClickObstacle : MonoBehaviour
                     Vector3 position = new Vector3(hit.point.x, hit.point.y, 0);
                     int prefabIndex = UnityEngine.Random.Range(0,3);
                     Instantiate(prefabList[prefabIndex], position, Quaternion.identity);
-                    
                 }
             }
         }
