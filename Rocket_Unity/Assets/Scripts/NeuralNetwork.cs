@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class NeuralNetwork
 {
-    System.Random rand = new System.Random();
     public List<Layer> layers;
 
     public NeuralNetwork()
@@ -59,30 +58,33 @@ public class NeuralNetwork
                 this.layers.Add(Object);
             }
         }
-         else
+        else
         {
             Debug.LogException(new Exception("You can only Add Layer type objects"));
         }
     }
 
-    public void Mutate(double rate)
+    public void Mutate()
     {
-        double mutate(double n)
+        for (int k = 0; k < this.layers.Count; k++)
         {
-            if (rand.NextDouble() * 2 - 1 < rate)
-            {
-                return rand.NextDouble() * 2 - 1;
-            }
-            else
-            {
-                return n;
-            }
-        }
+            int rows = this.layers[k].Weights.data.GetLength(0);
+            int cols = this.layers[k].Weights.data.GetLength(1);
 
-        for (int i = 0; i < this.layers.Count; i++)
-        {
-            this.layers[i].Weights.Map(mutate(0.1));
-            this.layers[i].Bias.Map(mutate(0.1));
+            for (int i = 0; i < rows; i++)
+            {
+                for (int j = 0; j < cols; j++)
+                {
+                    int a = (int)System.DateTime.Now.Ticks;
+                    UnityEngine.Random.InitState(a);
+                    double we = this.layers[k].Weights.data[i, j];
+                    if (UnityEngine.Random.value* 1000f <= 2f)
+                    {
+                        we = UnityEngine.Random.value;
+                    }
+                    this.layers[k].Weights.data[i, j]=we;
+                }
+            }         
         }
     }
-}
+    }
