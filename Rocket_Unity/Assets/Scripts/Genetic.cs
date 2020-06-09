@@ -14,10 +14,6 @@ public class Genetic : MonoBehaviour
     public float d;
     public bool collided = false;
     public bool dead = false;
-    public double o1;
-    public double o2;
-    public static float variable1 = 1;
-
 
     void Start()
     {
@@ -63,14 +59,11 @@ public class Genetic : MonoBehaviour
 
             d = Vector3.Distance(gameObject.transform.position, GameObject.Find("forest").transform.position);
             double[] output = nn.Feedforward(input);
-            
             float variable1 = (float)output[0];
             float variable2 = (float)output[1];
-            o1 = output[0];
-            o2 = output[1];
 
             transform.Rotate(Vector3.forward * (variable1-0.5f) * 200f*Time.deltaTime);
-            rb.AddRelativeForce(Vector3.up *variable2* 3000f * Time.deltaTime);
+            rb.AddRelativeForce(Vector3.up * 3000f * variable2 * Time.deltaTime);
             fitness = Map.mapping(d, 0, Screen.height, 1, 0);
         }
     }
@@ -81,7 +74,7 @@ public class Genetic : MonoBehaviour
     {
         if (collision.collider.gameObject.tag == "Target")
         {
-            fitness *= 10;
+            fitness *= 2;
             collided = true;
             //Object.Destroy(gameObject);
         }
@@ -90,7 +83,6 @@ public class Genetic : MonoBehaviour
             dead = true;
             collided = true;
             Object.Destroy(gameObject);
-            fitness *=0.9;
         }
     }
 

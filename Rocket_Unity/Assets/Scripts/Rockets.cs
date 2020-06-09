@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class Rockets : MonoBehaviour
 {
+    System.Random random = new System.Random();
     public GameObject Prefab;
+    public NeuralNetwork dn = new NeuralNetwork();
     public List<Genetic> rockets;
     public List<NeuralNetwork> neural;
     public List<Genetic> temp;
@@ -12,8 +14,7 @@ public class Rockets : MonoBehaviour
     public float timeframe;
     public float GameSpeed = 1f;
     public int pop;
-    public int generation = 1;
-
+    
 
     void Start()
     {
@@ -38,7 +39,6 @@ public class Rockets : MonoBehaviour
 
     public void CreateRocket()
     {
-        generation++;
         Time.timeScale = GameSpeed;
         if (rockets.Count > 0)
         {
@@ -58,11 +58,10 @@ public class Rockets : MonoBehaviour
             }
             for (int i = 0; i < pop; i++)
             {
-                neural[i] = cop[i].DeepCopy();
+                neural[i] = cop[i];
                 neural[i].Mutate();
             }
-            rockets.Clear();
-            //temp.Clear();
+            //EditFit();
         }
  
         rockets = new List<Genetic>();
@@ -93,42 +92,38 @@ public class Rockets : MonoBehaviour
                     rockets[i + p] = rockets[i];           
                     rockets[i] = temp[i];
                     check = 1;
-                    //surusiojami tinklai mazejimo tvarka pagal fitness
+                    //surusiojami tinklai mazejimo tvarka
                 }
             }
         }
-        for (int i = 0; i < pop; i++)
-        {
-            //print(rockets[i].fitness);
-        }
-            
+        //Crossover();
+        //for (int i = 0; i < pop; i++)
+        //{
+            //NeuralNetwork newNetwork = dn.DeepCopy();
+            //neural[i].DeepCopy();
+            //neural[i].Mutate();
+        //}      
     }
 
     public void Crossover()
     {
-        List<double> NewGenes = new List<double>();
-        List<double> ReverseGenes = new List<double>();
-        int h = 0;
-        int g = 0;
+        double[][][][] NewGenes = new double[][][][] { };
+        double[][][][] ReverseGenes = new double[][][][] { }; ;
 
         for (int i = 0; i < pop / 2; i++)
-        {            
-            for (int j = 0; j < rockets[i].nn.layers.Count; j++)
+        {
+            for (int j = 0; j < dn.layers.Count; j++)
             {
-                int rows = rockets[i].nn.layers[j].Weights.data.GetLength(0);
-                int cols = rockets[i].nn.layers[j].Weights.data.GetLength(1);
-                
+                int rows = dn.layers[j].Weights.data.GetLength(0);
+                int cols = dn.layers[j].Weights.data.GetLength(1);
                 for (int k = 0; k < rows; k++)
                 {
-                    int a = (int)System.DateTime.Now.Ticks;
-                    Random.InitState(a);
-                    if (Random.value <= 0.5)
+                    if (random.NextDouble() <= 0.5)
                     {
                         for (int L = 0; L < cols; L++)
                         {
-                            NewGenes.Add(rockets[i].nn.layers[j].Weights.data[k, L]);
-                            ReverseGenes.Add(rockets[i+1].nn.layers[j].Weights.data[k, L]);
-                            //print(rockets[i].nn.layers[j].Weights.data[k, L]);
+                            NewGenes[i][j][k][L] = rockets[i].nn.layers[j].Weights.data[k, L];
+                            ReverseGenes[i][j][k][L] = rockets[i + 1].nn.layers[j].Weights.data[k, L];
                         }
                     }
 
@@ -136,8 +131,8 @@ public class Rockets : MonoBehaviour
                     {
                         for (int L = 0; L < cols; L++)
                         {
-                            NewGenes.Add(rockets[i+1].nn.layers[j].Weights.data[k, L]);
-                            ReverseGenes.Add(rockets[i].nn.layers[j].Weights.data[k, L]);
+                            NewGenes[i][j][k][L] = rockets[i+1].nn.layers[j].Weights.data[k, L];
+                            ReverseGenes[i][j][k][L] = rockets[i].nn.layers[j].Weights.data[k, L];
                         }
                         //naudoja arba vienos raketos weight grupe pirma ir kitos raketos grupe antra arba atvirksciai
                     }
@@ -147,36 +142,28 @@ public class Rockets : MonoBehaviour
         }
         for (int i = 0; i < pop; i++)
         {
-            for (int j = 0; j < rockets[i].nn.layers.Count; j++)
+            for (int j = 0; j < dn.layers.Count; j++)
             {
-                int rows = rockets[i].nn.layers[j].Weights.data.GetLength(0);
-                int cols = rockets[i].nn.layers[j].Weights.data.GetLength(1);
+                int rows = dn.layers[j].Weights.data.GetLength(0);
+                int cols = dn.layers[j].Weights.data.GetLength(1);
                 for (int k = 0; k < rows; k++)
                 {
                     for (int L = 0; L < cols; L++)
                     {
                         if (i < pop / 2)
-                        {                                      
-                            rockets[i].nn.layers[j].Weights.data[k, L] = NewGenes[h];
-                            h++;                                                 
+                        {
+                            rockets[i].nn.layers[j].Weights.data[k, L] = NewGenes[i][j][k][L];
                         }
                         if (i >= pop / 2)
-                        {                            
-                            rockets[i].nn.layers[j].Weights.data[k, L] = ReverseGenes[g];
-                            g++;                           
+                        {
+                            rockets[i].nn.layers[j].Weights.data[k, L] = ReverseGenes[i][j][k][L];
                         }
-                        rockets[i].nn.layers[j].Bias.data[k,0] = 0;
-                        //print(rockets[i].nn.layers[j].Weights.data[k, L]);
+                        print(rockets[i].nn.layers[j].Weights.data[k, L]);
                     }                    
                     
                 }
             }
         }
-        print("rocket1");
-        rockets[0].nn.layers[1].Weights.MatrixDisplay();
-        print("rocket2");
-        rockets[1].nn.layers[1].Weights.MatrixDisplay();
-        NewGenes.Clear();
-        ReverseGenes.Clear();
     }
+
 }
