@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class Matrix
 {
-    static System.Random rnd = new System.Random();
+    static System.Random rand = new System.Random();
     public int rows, cols;
     public double[,] data;
 
@@ -109,7 +109,7 @@ public class Matrix
         {
             for (int col = 0; col < this.cols; col++)
             {
-                this.data[row, col] = (rnd.NextDouble() * (end - start)) + start; // NextDouble() by default returns between 0 and 1
+                this.data[row, col] = (rand.NextDouble() * (end - start)) + start; // NextDouble() by default returns between 0 and 1
             }
         }
     }
@@ -118,5 +118,10 @@ public class Matrix
     public static double Sigmoid(double n)
     {
         return 1.0 / (1.0 + Math.Exp(-n));
+    }
+
+    public static double Mutate(double n)
+    {
+        return n * rand.NextDouble() * 2 - 1;
     }
 }

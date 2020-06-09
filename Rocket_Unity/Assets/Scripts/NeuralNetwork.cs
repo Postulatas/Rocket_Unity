@@ -65,24 +65,12 @@ public class NeuralNetwork
         }
     }
 
-    public void Mutate(double rate)
+    public void Mutate()
     {
-        double mutate(double n)
-        {
-            if (rand.NextDouble() * 2 - 1 < rate)
-            {
-                return rand.NextDouble() * 2 - 1;
-            }
-            else
-            {
-                return n;
-            }
-        }
-
         for (int i = 0; i < this.layers.Count; i++)
         {
-            this.layers[i].Weights.Map(mutate(0.1));
-            this.layers[i].Bias.Map(mutate(0.1));
+            this.layers[i].Weights.Map(Matrix.Mutate);
+            this.layers[i].Bias.Map(Matrix.Mutate);
         }
     }
 }

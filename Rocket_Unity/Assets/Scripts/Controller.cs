@@ -11,16 +11,27 @@ public class Controller : MonoBehaviour
     [SerializeField] float Main_Thrust = 3000.0f;
     [SerializeField] float rcs_Thrust = 200f;
 
+    NeuralNetwork nn = new NeuralNetwork();
     void Start()
     {
         rBody = GetComponent<Rigidbody>();
         //GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePositionZ;
+
+        nn.AddLayer(new Layer(3, InputDim: 3));
+        nn.AddLayer(new Layer(1));
     }
 
     void Update()
     {
-        Controll();
-        Thrust();
+        double[] inputs = new double[] {1, 0.5, 0.4, 0.2 };
+        double[] output = nn.Feedforward(inputs);
+        if (output[0] > 0.5)
+        {
+            Thrust();
+        }
+
+        //Controll();
+        //Thrust();
     }
 
     protected void LateUpdate()
@@ -42,11 +53,11 @@ public class Controller : MonoBehaviour
 
     private void Thrust()
     {
-
-        if (Input.GetKey(KeyCode.Space))
+        rBody.AddRelativeForce(Vector3.up * Main_Thrust * Time.deltaTime);
+/*        if (Input.GetKey(KeyCode.Space))
         {
             rBody.AddRelativeForce(Vector3.up * Main_Thrust * Time.deltaTime);
-        }
+        }*/
 
     }
 
