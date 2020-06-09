@@ -17,6 +17,10 @@ public class Rockets : MonoBehaviour
 
     void Start()
     {
+        if (pop % 2 == 1)
+        {
+            pop += 1;
+        }
         CreateNet();
         InvokeRepeating("CreateRocket", 0.1f, timeframe);
     }
@@ -29,8 +33,8 @@ public class Rockets : MonoBehaviour
         for (int i = 0; i < pop; i++)
         {               
             NeuralNetwork nn = new NeuralNetwork();
-            nn.AddLayer(new Layer(7, 14));
-            nn.AddLayer(new Layer(2));
+            nn.AddLayer(new Layer(14, 14));
+            nn.AddLayer(new Layer(2, false));
             neural.Add(nn);
             cop.Add(nn);
         }
@@ -121,27 +125,22 @@ public class Rockets : MonoBehaviour
                 {
                     int a = (int)System.DateTime.Now.Ticks;
                     Random.InitState(a);
-                    if (Random.value <= 0.5)
+                    for (int L = 0; L < cols; L++)
                     {
-                        for (int L = 0; L < cols; L++)
+                        if (Random.value <= 0.5)
                         {
                             NewGenes.Add(rockets[i].nn.layers[j].Weights.data[k, L]);
-                            ReverseGenes.Add(rockets[i+1].nn.layers[j].Weights.data[k, L]);
+                            ReverseGenes.Add(rockets[i + 2].nn.layers[j].Weights.data[k, L]);
                             //print(rockets[i].nn.layers[j].Weights.data[k, L]);
                         }
-                    }
-
-                    else
-                    {
-                        for (int L = 0; L < cols; L++)
+                        else
                         {
-                            NewGenes.Add(rockets[i+1].nn.layers[j].Weights.data[k, L]);
+                            NewGenes.Add(rockets[i + 2].nn.layers[j].Weights.data[k, L]);
                             ReverseGenes.Add(rockets[i].nn.layers[j].Weights.data[k, L]);
+                            //naudoja arba vienos raketos weight grupe pirma ir kitos raketos grupe antra arba atvirksciai
                         }
-                        //naudoja arba vienos raketos weight grupe pirma ir kitos raketos grupe antra arba atvirksciai
-                    }
+                    }        
                 }
-
             }
         }
         for (int i = 0; i < pop; i++)
@@ -164,7 +163,6 @@ public class Rockets : MonoBehaviour
                             rockets[i].nn.layers[j].Weights.data[k, L] = ReverseGenes[g];
                             g++;                           
                         }
-                        rockets[i].nn.layers[j].Bias.data[k,0] = 0;
                         //print(rockets[i].nn.layers[j].Weights.data[k, L]);
                     }                    
                     

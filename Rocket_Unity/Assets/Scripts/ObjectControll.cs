@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MouseClickObstacle : MonoBehaviour
+public class ObjectControll : MonoBehaviour
 {
     List<GameObject> prefabList = new List<GameObject>();
     public GameObject ast_1;

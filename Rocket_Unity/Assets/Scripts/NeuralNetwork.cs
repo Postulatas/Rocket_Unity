@@ -27,7 +27,7 @@ public class NeuralNetwork
         {
             Matrix n2 = layers[i].Weights;
             Matrix output = Matrix.Multiply(n2, n1);
-            output.Add(layers[i].Bias); // Apply Bias
+            //output.Add(layers[i].Bias); // Apply Bias
             output.Map(Matrix.Sigmoid); // Map Sigmoid function to each element
             n1 = output;
         }
@@ -49,7 +49,7 @@ public class NeuralNetwork
             else if (Convert.ToBoolean(Object.InputDim) && this.layers.Count == 0)
             {
                 Object.Weights = new Matrix(Object.Nodes, Object.InputDim);
-                Object.Bias = new Matrix(Object.Nodes, 1);
+                //Object.Bias = new Matrix(Object.Nodes, 1);
                 this.layers.Add(Object);
             }
             else
@@ -80,9 +80,8 @@ public class NeuralNetwork
                     double we = this.layers[k].Weights.data[i, j];
                     if (UnityEngine.Random.value* 1000f <= 2f)
                     {
-                        we = UnityEngine.Random.value;
+                        this.layers[k].Weights.data[i, j] = UnityEngine.Random.value;                     
                     }
-                    this.layers[k].Weights.data[i, j]=we;
                 }
             }         
         }
