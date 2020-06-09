@@ -87,4 +87,42 @@ public class NeuralNetwork
             }         
         }
     }
-}
+
+    public void AddLayer(Layer Object)
+    {
+        if (Object is Layer)
+        {
+            if (!Convert.ToBoolean(Object.InputDim) && this.layers.Count == 0)
+            {
+                Debug.LogException(new Exception("ERROR: first layer has to have 'InputDim=*int*' argument"));
+            }
+            else if (this.layers.Count > 0 && Convert.ToBoolean(Object.InputDim))
+            {
+                Debug.LogException(new Exception("ERROR: only the first layer should have 'InputDim=*int*' argument"));
+            }
+            else if (Convert.ToBoolean(Object.InputDim) && this.layers.Count == 0)
+            {
+                Object.Weights = new Matrix(Object.Nodes, Object.InputDim);
+                Object.Bias = new Matrix(Object.Nodes, 1);
+                this.layers.Add(Object);
+            }
+            else
+            {
+                Object.Weights = new Matrix(Object.Nodes, this.layers[this.layers.Count - 1].Nodes);
+                this.layers.Add(Object);
+            }
+        }
+         else
+        {
+            Debug.LogException(new Exception("You can only Add Layer type objects"));
+        }
+    }
+
+    public void Mutate()
+    {
+        for (int i = 0; i < this.layers.Count; i++)
+        {
+            this.layers[i].Weights.Map(Matrix.Mutate);
+            this.layers[i].Bias.Map(Matrix.Mutate);
+        }
+    }
