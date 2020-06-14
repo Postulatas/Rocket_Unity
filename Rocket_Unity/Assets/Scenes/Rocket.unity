@@ -213,7 +213,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 94e8b543ccfce214cbe3536377799049, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 350
+      value: 335
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 94e8b543ccfce214cbe3536377799049, type: 3}
       propertyPath: m_LocalPosition.z
@@ -528,12 +528,12 @@ PrefabInstance:
     - target: {fileID: 7237035978826072535, guid: 654b20cb584401f4fb430d16e1f9245d,
         type: 3}
       propertyPath: GameSpeed
-      value: 5
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 7237035978826072535, guid: 654b20cb584401f4fb430d16e1f9245d,
         type: 3}
       propertyPath: pop
-      value: 14
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 7237035978826072535, guid: 654b20cb584401f4fb430d16e1f9245d,
         type: 3}
@@ -543,7 +543,7 @@ PrefabInstance:
     - target: {fileID: 7237035978826072535, guid: 654b20cb584401f4fb430d16e1f9245d,
         type: 3}
       propertyPath: timeframe
-      value: 4
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 654b20cb584401f4fb430d16e1f9245d, type: 3}
