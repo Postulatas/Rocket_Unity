@@ -33,7 +33,7 @@ public class Rockets : MonoBehaviour
         for (int i = 0; i < pop; i++)
         {               
             NeuralNetwork nn = new NeuralNetwork();
-            nn.AddLayer(new Layer(14, 14));
+            nn.AddLayer(new Layer(3, 14));
             nn.AddLayer(new Layer(2, false));
             neural.Add(nn);
             cop.Add(nn);
